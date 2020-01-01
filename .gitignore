@@ -1,0 +1,9 @@
+recycle/
+.idea/
+.git/
+*.log
+*.so
+*.c
+*.cpp
+*build/
+__pycache__
