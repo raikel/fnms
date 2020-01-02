@@ -8,12 +8,15 @@ import io
 import os
 import sys
 import warnings
-from distutils.extension import Extension
+
 from shutil import rmtree
 
 import numpy as np
-from Cython.Distutils import build_ext
 from setuptools import find_packages, setup, Command
+from Cython.Distutils import build_ext
+from distutils.extension import Extension
+
+
 
 # Package meta-data.
 NAME = 'fnms'
@@ -82,21 +85,16 @@ class UploadCommand(Command):
             pass
 
         self.status('Building Source and Wheel (universal) distribution…')
-        os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
+        os.system('{0} setup.py sdist'.format(sys.executable))
 
         self.status('Uploading the package to PyPI via Twine…')
         os.system('twine upload dist/*')
-
-        self.status('Pushing git tags…')
-        os.system('git tag v{0}'.format(about['__version__']))
-        os.system('git push --tags')
 
         sys.exit()
 
 
 def find_in_path(name, path):
     """Find a file in a search path"""
-    # adapted fom http://code.activestate.com/recipes/52224-find-a-file-given-a-search-path/
     for dir in path.split(os.pathsep):
         binpath = os.path.join(dir, name)
         if os.path.exists(binpath):
@@ -235,7 +233,7 @@ if CUDA is not None:
         include_dirs=[numpy_include, CUDA['include']]
     ))
 
-
+print(ext_modules)
 # Where the magic happens:
 setup(
     name=NAME,
