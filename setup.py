@@ -25,7 +25,7 @@ URL = 'https://github.com/raikel/fnms'
 EMAIL = 'raikelbl@gmail.com'
 AUTHOR = 'Raikel Bordon'
 REQUIRES_PYTHON = '>=3.4.0'
-VERSION = '0.1.0'
+VERSION = '0.4.0'
 README = 'README.rst'
 
 # What packages are required for this module to be executed?
@@ -144,10 +144,10 @@ def locate_cuda():
 
 CUDA = None
 
-try:
-    CUDA = locate_cuda()
-except EnvironmentError as err:
-    warnings.warn(str(err))
+# try:
+#     CUDA = locate_cuda()
+# except EnvironmentError as err:
+#     warnings.warn(str(err))
 
 
 # Obtain the numpy include directory.  This logic works across numpy versions.
@@ -233,7 +233,6 @@ if CUDA is not None:
         include_dirs=[numpy_include, CUDA['include']]
     ))
 
-print(ext_modules)
 # Where the magic happens:
 setup(
     name=NAME,
